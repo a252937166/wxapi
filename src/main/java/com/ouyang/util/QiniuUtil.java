@@ -1,6 +1,7 @@
 package com.ouyang.util;
 
 import com.google.gson.Gson;
+import com.ouyang.constant.MyConstant;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -48,5 +49,9 @@ public class QiniuUtil {
 
         }
         return putRet!=null?putRet.key:null;
+    }
+
+    public static String getImgUrl(String key) {
+        return MyConstant.QINIU_CDN+"/"+key;
     }
 }

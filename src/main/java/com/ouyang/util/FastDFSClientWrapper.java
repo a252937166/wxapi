@@ -3,6 +3,7 @@ package com.ouyang.util;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import com.ouyang.constant.MyConstant;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public class FastDFSClientWrapper {
     // 封装图片完整URL地址
     private String getResAccessUrl(StorePath storePath) {
         String fileUrl =
-                 "http://10.255.55.5" + "/" + storePath.getFullPath();
+                 MyConstant.FAST_DFS_HOST + "/" + storePath.getFullPath();
         return fileUrl;
     }
 
