@@ -18,7 +18,8 @@ public class TencentAiUtil {
     private static final String APP_ID = "10108902";
     private static final String SECRET_ID = "AKID1rRmsinhrpZAXkSKm11nKcgV5QXPQRbb";
     private static final String SECRET_KEY = "qTsypRowoRpxpd1E6iLlyvc3E9nBJAl6";
-    private static Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY,Youtu.API_YOUTU_END_POINT);
+    private static final String USER_ID = "250757958";
+    private static Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY,Youtu.API_YOUTU_END_POINT,USER_ID);
 
     public static JSONObject detectFace(String imageUrl) throws KeyManagementException, NoSuchAlgorithmException, JSONException, IOException {
         //人脸检测调用示例
@@ -27,7 +28,7 @@ public class TencentAiUtil {
 
     public static void main(String[] args) {
         try {
-            JSONObject j = detectFace("https://qiniu.ouyanglol.com/2017/8/17/cli_300px.png");
+            JSONObject j = detectFace("https://qiniu.ouyanglol.com/ba8e95719510443dbaf1d87aba763cb7_wxdf95e58238bdb05a.o6zAJs9W_uJeJo7vcvGsIWe-0jwg.afee67a619f2f862790c52e9aed5b985.jpg");
             System.out.println(j.toString());
         } catch (KeyManagementException e) {
             e.printStackTrace();

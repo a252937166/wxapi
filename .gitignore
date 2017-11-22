@@ -26,3 +26,5 @@ hs_err_pid*
 .idea/
 wxapi.iml
 target/
+.DS_Store
+src/test/
