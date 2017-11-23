@@ -17,11 +17,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.util.SerializationUtils;
 
+import javax.imageio.ImageIO;
 import javax.net.ssl.SSLContext;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -234,7 +238,36 @@ public class Http {
 	public int getStatusCode(){
 		return getStatusLine().getStatusCode();
 	}
-	
+
+	public static byte[] getImageBytes(String imgUrl) {
+		ByteArrayOutputStream baos = null;
+		try {
+			URL u = new URL(imgUrl);
+			BufferedImage image = ImageIO.read(u);
+
+			//convert BufferedImage to byte array
+			baos = new ByteArrayOutputStream();
+			ImageIO.write( image, "jpg", baos);
+			baos.flush();
+
+			return baos.toByteArray();
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+		finally
+		{
+			if(baos != null)
+			{
+				try {
+					baos.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+
 	public class HttpResult{
 		
 		private Integer resultCode;

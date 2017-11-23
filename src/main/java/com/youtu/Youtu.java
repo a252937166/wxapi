@@ -284,7 +284,7 @@ public class Youtu {
 	}
 
 
-	public JSONObject DetectFaceUrl(String url, int mode)
+	public String DetectFaceUrl(String url, int mode)
 	throws IOException, JSONException, KeyManagementException,
 	NoSuchAlgorithmException {
 		JSONObject data = new JSONObject();
@@ -293,7 +293,7 @@ public class Youtu {
 		JSONObject respose = m_not_use_https ? SendHttpRequest(data, "api/detectface")
 		: SendHttpsRequest(data, "api/detectface");
 
-		return respose;
+		return respose.toString();
 	}
 
 
