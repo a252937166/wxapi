@@ -19,9 +19,9 @@ import java.util.HashMap;
  */
 public class BaiduAiUtil {
 
-    private static final String APP_ID = "10420833";
-    private static final String API_KEY = "cDkXygo1c02AbChObdG29Mlx";
-    private static final String SECRET_KEY = "Lim8y6TL7ICT9KgGRFG4F1mVCjIotQDV";
+    private static final String APP_ID = "10429237";
+    private static final String API_KEY = "xX4xf1A3lW0eXbQSG3xRiQjt";
+    private static final String SECRET_KEY = "aIUKu9eKMCjE1irGTb2ljKKgFfhM4ZLM";
     private static final AipFace client = new AipFace(APP_ID, API_KEY, SECRET_KEY);
     private static final String accessToken = AuthService.getAuth();
     /**
