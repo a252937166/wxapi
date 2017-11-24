@@ -3,32 +3,33 @@
 <mapper namespace="com.ouyang.mapper.UploadImageInfoMapper" >
   <resultMap id="BaseResultMap" type="com.ouyang.model.UploadImageInfo" >
     <!--          -->
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--          -->
-    id, url, create_date
+    id, url, create_date, user_info_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--          -->
     select 
     <include refid="Base_Column_List" />
     from upload_image_info
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--          -->
     delete from upload_image_info
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ouyang.model.UploadImageInfo" >
     <!--          -->
-    insert into upload_image_info (id, url, create_date
-      )
-    values (#{id,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
-      )
+    insert into upload_image_info (id, url, create_date, 
+      user_info_id)
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{userInfoId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ouyang.model.UploadImageInfo" >
     <!--          -->
@@ -43,16 +44,22 @@
       <if test="createDate != null" >
         create_date,
       </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -66,14 +73,18 @@
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ouyang.model.UploadImageInfo" >
     <!--          -->
     update upload_image_info
     set url = #{url,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_info_id = #{userInfoId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

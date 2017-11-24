@@ -3,7 +3,7 @@
 <mapper namespace="com.ouyang.mapper.VisitUserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.ouyang.model.VisitUserInfo" >
     <!--          -->
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="country" property="country" jdbcType="VARCHAR" />
@@ -20,17 +20,17 @@
     id, avatar_url, city, country, gender, language, nick_name, openid, province, image_info_id, 
     create_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--          -->
     select 
     <include refid="Base_Column_List" />
     from visit_user_info
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--          -->
     delete from visit_user_info
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.ouyang.model.VisitUserInfo" >
     <!--          -->
@@ -38,7 +38,7 @@
       country, gender, language, 
       nick_name, openid, province, 
       image_info_id, create_date)
-    values (#{id,jdbcType=INTEGER}, #{avatarUrl,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
       #{imageInfoId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
@@ -83,7 +83,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="avatarUrl != null" >
         #{avatarUrl,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ouyang.model.VisitUserInfo" >
     <!--          -->
@@ -167,6 +167,6 @@
       province = #{province,jdbcType=VARCHAR},
       image_info_id = #{imageInfoId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

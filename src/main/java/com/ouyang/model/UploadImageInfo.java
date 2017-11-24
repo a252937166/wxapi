@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UploadImageInfo {
     /**   id **/
-    private String id;
+    private Integer id;
 
     /** 图片地址  url **/
     private String url;
@@ -12,14 +12,17 @@ public class UploadImageInfo {
     /**   create_date **/
     private Date createDate;
 
+    /**   user_info_id **/
+    private String userInfoId;
+
     /**     id   **/
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
     /**     id   **/
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**   图片地址  url   **/
@@ -40,5 +43,15 @@ public class UploadImageInfo {
     /**     create_date   **/
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**     user_info_id   **/
+    public String getUserInfoId() {
+        return userInfoId;
+    }
+
+    /**     user_info_id   **/
+    public void setUserInfoId(String userInfoId) {
+        this.userInfoId = userInfoId == null ? null : userInfoId.trim();
     }
 }

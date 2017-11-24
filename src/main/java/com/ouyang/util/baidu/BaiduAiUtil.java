@@ -72,20 +72,6 @@ public class BaiduAiUtil {
         return getImageResult(image,url);
     }
 
-    private static String getImageResult(byte[] file,String url,String params) {
-        try {
-            String imgStr = Base64Util.encode(file);
-            String imgParam = URLEncoder.encode(imgStr, "UTF-8");
-            String param = "image=" + imgParam + "&"+params;
-            String result = HttpUtil.post(url, accessToken, param);
-            System.out.println(result);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     /**
      * 动物识别
@@ -104,6 +90,29 @@ public class BaiduAiUtil {
         return getImageResult(image,url);
     }
 
+    /**
+     * ORC通用
+     * @param image
+     * @return
+     */
+    public static String orcGeneralBasic(byte[] image) {
+        // 请求url
+        String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
+        return getImageResult(image,url);
+    }
+
+    /**
+     *
+     * @param image
+     * @return
+     */
+    public static String orcBankcard(byte[] image) {
+        // 请求url
+        String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard";
+        return getImageResult(image,url);
+    }
+
+
     private static String getImageResult(byte[] file,String url) {
         try {
             String imgStr = Base64Util.encode(file);
@@ -118,9 +127,47 @@ public class BaiduAiUtil {
         return null;
     }
 
+    private static String getImageResult(byte[] file,String url,String params) {
+        try {
+            String imgStr = Base64Util.encode(file);
+            String imgParam = URLEncoder.encode(imgStr, "UTF-8");
+            String param = "image=" + imgParam + "&" + params;
+            String result = HttpUtil.post(url, accessToken, param);
+            System.out.println(result);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String getImageResult(String imageUrl,String url) {
+        try {
+            String param = "url=" + imageUrl;
+            String result = HttpUtil.post(url, accessToken, param);
+            System.out.println(result);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String getImageResult(String imageUrl,String url,String params) {
+        try {
+            String param = "url=" + imageUrl + "&" + params;;
+            String result = HttpUtil.post(url, accessToken, param);
+            System.out.println(result);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
-        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511434119864&di=832090c2c855421d908374e2520089ab&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201405%2F06%2F20140506163959_k3rPN.jpeg";
-        String s = logo(Http.getImageBytes(url));
+        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511504343573&di=d7262d0159c251bec8c31c640dfdab52&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F4afbfbedab64034f48fa4d3fa4c379310a551dd7.jpg";
+        String s = orcBankcard(Http.getImageBytes(url));
         JSONObject faceJson = null;
         try {
             faceJson = new JSONObject(s);
@@ -128,7 +175,7 @@ public class BaiduAiUtil {
             e.printStackTrace();
         }
         try {
-            JSONArray resultArray = (JSONArray) faceJson.get("result");
+            JSONArray resultArray = (JSONArray) faceJson.get("words_result");
             JSONObject jsonResult = (JSONObject) resultArray.get(0);
             System.out.println(jsonResult.toString());
         } catch (JSONException e) {
