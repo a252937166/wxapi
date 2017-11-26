@@ -2,6 +2,10 @@ package com.ouyang;
 
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import com.ouyang.controller.ApiController;
+import com.ouyang.model.VisitUserInfo;
+import com.ouyang.service.UploadImageInfoService;
+import com.ouyang.service.VisitUserInfoService;
 import com.ouyang.util.FastDFSClientWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,17 +24,11 @@ import java.net.URL;
 public class MyTest {
     @Autowired
     private FastFileStorageClient storageClient;
+    @Autowired
+    private VisitUserInfoService visitUserInfo;
     @Test
     public void test() throws IOException {
-        HttpURLConnection urlcon = null;
-        URL url = new URL("http://img.bizhi.sogou.com/images/2012/03/14/124196.jpg");
-        //open url
-        urlcon = (HttpURLConnection)url.openConnection();
-        //get url properties
-        long fileSize=urlcon.getContentLengthLong();
-        InputStream inputStream = url.openStream();
-        System.out.println(fileSize);
-        StorePath storePath = storageClient.uploadFile(inputStream,fileSize,"",null);
-        System.out.println(storePath.getFullPath());
+        ApiController apiController = new ApiController();
+        apiController.test();
     }
 }

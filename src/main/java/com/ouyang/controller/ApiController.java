@@ -23,10 +23,14 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+    private final VisitUserInfoService visitUserInfoService;
+    private final UploadImageInfoService uploadImageInfoService;
+
     @Autowired
-    VisitUserInfoService visitUserInfoService;
-    @Autowired
-    UploadImageInfoService uploadImageInfoService;
+    public ApiController(VisitUserInfoService visitUserInfoService, UploadImageInfoService uploadImageInfoService) {
+        this.visitUserInfoService = visitUserInfoService;
+        this.uploadImageInfoService = uploadImageInfoService;
+    }
 
     @RequestMapping(value = "/uploadImg")
     public String uploadImg(MultipartFile file) {
@@ -249,6 +253,12 @@ public class ApiController {
         }
         httpResult.setResult(userInfo);
         return httpResult;
+    }
+
+    public void test() {
+        System.out.println("test");
+        System.out.println("11111111111111111111111111111111111111111111111111");
+        visitUserInfoService.test();
     }
 
 

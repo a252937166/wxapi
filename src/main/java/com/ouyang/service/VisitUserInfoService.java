@@ -18,4 +18,8 @@ public class VisitUserInfoService {
     public Integer add(VisitUserInfo visitUserInfo) {
         return visitUserInfoMapper.insertSelective(visitUserInfo);
     }
+
+    public void test() {
+        System.out.println("service test");
+    }
 }
