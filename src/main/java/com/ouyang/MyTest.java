@@ -28,7 +28,5 @@ public class MyTest {
     private VisitUserInfoService visitUserInfo;
     @Test
     public void test() throws IOException {
-        ApiController apiController = new ApiController();
-        apiController.test();
     }
 }

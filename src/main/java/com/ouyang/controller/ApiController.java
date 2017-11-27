@@ -46,7 +46,6 @@ public class ApiController {
      */
     @RequestMapping(value = "/baiDuFaceRecognize")
     public HttpResult<Object> baiDuFaceRecognize(MultipartFile file, String userInfoId) throws IOException, JSONException {
-        saveImageInfo(file,userInfoId);
         HttpResult<Object> httpResult = new HttpResult<>();
         JSONObject faceJson = new JSONObject(BaiduAiUtil.faceRecognize(file.getBytes()));
         JSONArray resultArray = (JSONArray) faceJson.get("result");
@@ -56,7 +55,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -75,7 +76,6 @@ public class ApiController {
         String uploadImageId = UUIDUtil.getId();
         String key = QiniuUtil.uploadImg(file);
         String imgUrl = QiniuUtil.getImgUrl(key);
-        saveImageInfo(imgUrl,userInfoId);
         JSONObject faceJson = new JSONObject(TencentAiUtil.detectFace(imgUrl));
         JSONArray resultArray = (JSONArray) faceJson.get("face");
         if (resultArray.length() == 0) {
@@ -85,7 +85,9 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         jsonResult.put("imageInfoId",uploadImageId);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -101,7 +103,6 @@ public class ApiController {
     @RequestMapping(value = "/baiduDish")
     public HttpResult<Object> baiduDish(MultipartFile file, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<Object> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
         JSONObject dishJson = new JSONObject(BaiduAiUtil.dish(file.getBytes()));
         JSONArray resultArray = (JSONArray) dishJson.get("result");
         if (resultArray.length() == 0) {
@@ -110,7 +111,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -126,7 +129,6 @@ public class ApiController {
     @RequestMapping(value = "/baiduCar")
     public HttpResult<Object> baiduCar(MultipartFile file, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<Object> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
         JSONObject dishJson = new JSONObject(BaiduAiUtil.car(file.getBytes()));
         JSONArray resultArray = (JSONArray) dishJson.get("result");
         if (resultArray.length() == 0) {
@@ -135,7 +137,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -151,7 +155,6 @@ public class ApiController {
     @RequestMapping(value = "/baiduPlant")
     public HttpResult<Object> baiduPlant(MultipartFile file, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<Object> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
         JSONObject dishJson = new JSONObject(BaiduAiUtil.plant(file.getBytes()));
         JSONArray resultArray = (JSONArray) dishJson.get("result");
         if (resultArray.length() == 0) {
@@ -160,7 +163,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -176,7 +181,6 @@ public class ApiController {
     @RequestMapping(value = "/baiduAnimal")
     public HttpResult<Object> baiduAnimal(MultipartFile file, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<Object> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
         JSONObject dishJson = new JSONObject(BaiduAiUtil.animal(file.getBytes()));
         JSONArray resultArray = (JSONArray) dishJson.get("result");
         if (resultArray.length() == 0) {
@@ -185,7 +189,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -201,7 +207,6 @@ public class ApiController {
     @RequestMapping(value = "/baiduLogo")
     public HttpResult<String> baiduLogo(MultipartFile file, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<String> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
         JSONObject dishJson = new JSONObject(BaiduAiUtil.logo(file.getBytes()));
         JSONArray resultArray = (JSONArray) dishJson.get("result");
         if (resultArray.length() == 0) {
@@ -210,7 +215,9 @@ public class ApiController {
             return httpResult;
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
-        httpResult.setResult(jsonResult.toString());
+        String resultStr = jsonResult.toString();
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -218,11 +225,10 @@ public class ApiController {
     @RequestMapping(value = "/baiduOcr")
     public HttpResult<String> baiduOcr(MultipartFile file, Integer ocrtype, String userInfoId) throws IOException, JSONException, NoSuchAlgorithmException, KeyManagementException {
         HttpResult<String> httpResult = new HttpResult<>();
-        saveImageInfo(file,userInfoId);
-
+        String resultStr = "";
         switch (ocrtype) {
             case 0:
-                httpResult.setResult(BaiduAiUtil.orcGeneralBasic(file.getBytes()));
+                resultStr = BaiduAiUtil.orcGeneralBasic(file.getBytes());
                 break;
             case 7:
                 JSONObject bankcardJson = new JSONObject(BaiduAiUtil.orcBankcard(file.getBytes()));
@@ -231,12 +237,13 @@ public class ApiController {
                     httpResult.setMsg("郭大队不觉得这是一张银行卡！");
                     return httpResult;
                 }
-                httpResult.setResult(bankcardJson.get("result").toString());
+                resultStr = bankcardJson.get("result").toString();
                 break;
             default:
                 break;
         }
-
+        saveImageInfo(file,userInfoId,resultStr);
+        httpResult.setResult(resultStr);
         return httpResult;
     }
 
@@ -265,18 +272,19 @@ public class ApiController {
 
 
 
-    private void saveImageInfo(MultipartFile file,String userInfoId) {
+    private void saveImageInfo(MultipartFile file,String userInfoId,String result) {
         ThreadPoolUtils.run(() -> {
             String url = QiniuUtil.getImgUrl(QiniuUtil.uploadImg(file));
             UploadImageInfo uploadImageInfo = new UploadImageInfo();
             uploadImageInfo.setUserInfoId(userInfoId);
             uploadImageInfo.setUrl(url);
             uploadImageInfo.setCreateDate(new Date());
+            uploadImageInfo.setResult(result);
             uploadImageInfoService.add(uploadImageInfo);
         });
     }
 
-    private void saveImageInfo(String imageUrl,String userInfoId) {
+    private void saveImageInfo(String imageUrl,String userInfoId,String result) {
         ThreadPoolUtils.run(() -> {
             UploadImageInfo uploadImageInfo = new UploadImageInfo();
             uploadImageInfo.setUserInfoId(userInfoId);

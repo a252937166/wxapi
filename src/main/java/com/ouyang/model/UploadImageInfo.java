@@ -15,6 +15,8 @@ public class UploadImageInfo {
     /**   user_info_id **/
     private String userInfoId;
 
+    private String result;
+
     /**     id   **/
     public Integer getId() {
         return id;
@@ -53,5 +55,13 @@ public class UploadImageInfo {
     /**     user_info_id   **/
     public void setUserInfoId(String userInfoId) {
         this.userInfoId = userInfoId == null ? null : userInfoId.trim();
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }
