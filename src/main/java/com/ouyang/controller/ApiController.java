@@ -56,7 +56,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -86,7 +86,7 @@ public class ApiController {
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         jsonResult.put("imageInfoId",uploadImageId);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -112,7 +112,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -138,7 +138,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -164,7 +164,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -190,7 +190,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -216,7 +216,7 @@ public class ApiController {
         }
         JSONObject jsonResult = (JSONObject) resultArray.get(0);
         String resultStr = jsonResult.toString();
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -242,7 +242,7 @@ public class ApiController {
             default:
                 break;
         }
-        saveImageInfo(file,userInfoId,resultStr);
+        saveImageInfo(file.getOriginalFilename(),file.getBytes(),userInfoId,resultStr);
         httpResult.setResult(resultStr);
         return httpResult;
     }
@@ -272,9 +272,9 @@ public class ApiController {
 
 
 
-    private void saveImageInfo(MultipartFile file,String userInfoId,String result) {
+    private void saveImageInfo(String fileName,byte[] fileBytes,String userInfoId,String result) {
         ThreadPoolUtils.run(() -> {
-            String url = QiniuUtil.getImgUrl(QiniuUtil.uploadImg(file));
+            String url = QiniuUtil.getImgUrl(QiniuUtil.uploadImg(fileName,fileBytes));
             UploadImageInfo uploadImageInfo = new UploadImageInfo();
             uploadImageInfo.setUserInfoId(userInfoId);
             uploadImageInfo.setUrl(url);
