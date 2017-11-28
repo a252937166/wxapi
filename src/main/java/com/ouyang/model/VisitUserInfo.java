@@ -30,9 +30,6 @@ public class VisitUserInfo {
     /**   province **/
     private String province;
 
-    /**   image_info_id **/
-    private String imageInfoId;
-
     /**   create_date **/
     private Date createDate;
 
@@ -124,16 +121,6 @@ public class VisitUserInfo {
     /**     province   **/
     public void setProvince(String province) {
         this.province = province == null ? null : province.trim();
-    }
-
-    /**     image_info_id   **/
-    public String getImageInfoId() {
-        return imageInfoId;
-    }
-
-    /**     image_info_id   **/
-    public void setImageInfoId(String imageInfoId) {
-        this.imageInfoId = imageInfoId == null ? null : imageInfoId.trim();
     }
 
     /**     create_date   **/

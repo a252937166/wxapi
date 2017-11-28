@@ -13,5 +13,7 @@ public interface UploadImageInfoMapper {
 
     int updateByPrimaryKeySelective(UploadImageInfo record);
 
+    int updateByPrimaryKeyWithBLOBs(UploadImageInfo record);
+
     int updateByPrimaryKey(UploadImageInfo record);
 }

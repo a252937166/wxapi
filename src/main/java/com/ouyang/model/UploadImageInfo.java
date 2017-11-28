@@ -15,6 +15,7 @@ public class UploadImageInfo {
     /**   user_info_id **/
     private String userInfoId;
 
+    /** 查询结果  result **/
     private String result;
 
     /**     id   **/
@@ -57,11 +58,13 @@ public class UploadImageInfo {
         this.userInfoId = userInfoId == null ? null : userInfoId.trim();
     }
 
+    /**   查询结果  result   **/
     public String getResult() {
         return result;
     }
 
+    /**   查询结果  result   **/
     public void setResult(String result) {
-        this.result = result;
+        this.result = result == null ? null : result.trim();
     }
 }
