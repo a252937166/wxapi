@@ -33,6 +33,12 @@ public class VisitUserInfo {
     /**   create_date **/
     private Date createDate;
 
+    /**   code **/
+    private String code;
+
+    /**   session_key **/
+    private String sessionKey;
+
     /**     id   **/
     public String getId() {
         return id;
@@ -131,5 +137,25 @@ public class VisitUserInfo {
     /**     create_date   **/
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**     code   **/
+    public String getCode() {
+        return code;
+    }
+
+    /**     code   **/
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
+    /**     session_key   **/
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    /**     session_key   **/
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey == null ? null : sessionKey.trim();
     }
 }

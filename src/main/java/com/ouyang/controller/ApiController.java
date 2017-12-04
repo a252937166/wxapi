@@ -1,12 +1,14 @@
 package com.ouyang.controller;
 
 
+import com.ouyang.constant.MyConstant;
 import com.ouyang.model.UploadImageInfo;
 import com.ouyang.model.VisitUserInfo;
 import com.ouyang.service.UploadImageInfoService;
 import com.ouyang.service.VisitUserInfoService;
 import com.ouyang.util.*;
 import com.ouyang.util.baidu.BaiduAiUtil;
+import com.ouyang.util.baidu.HttpUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+;
 
 
 @RestController
@@ -249,9 +252,16 @@ public class ApiController {
 
 
     @PostMapping("/saveUserInfo")
-    public HttpResult<VisitUserInfo> saveUserInfo(@RequestBody VisitUserInfo userInfo) {
+    public HttpResult<VisitUserInfo> saveUserInfo(@RequestBody VisitUserInfo userInfo) throws Exception {
         userInfo.setCreateDate(new Date());
         userInfo.setId(UUIDUtil.getId());
+        String url = MyConstant.WX_GET_OPENID_URL.replace("JSCODE", userInfo.getCode());
+        String jsonStr = HttpUtil.getUrl(url,"application/json","UTF-8");
+        JSONObject object = new JSONObject(jsonStr);
+        String openid = (String) object.get("openid");
+        String sessionKey = (String) object.get("session_key");
+        userInfo.setOpenid(openid);
+        userInfo.setSessionKey(sessionKey);
         HttpResult<VisitUserInfo> httpResult = new HttpResult<>();
         if (visitUserInfoService.add(userInfo) < 0) {
             httpResult.setMsg("添加失败！");
@@ -261,15 +271,6 @@ public class ApiController {
         httpResult.setResult(userInfo);
         return httpResult;
     }
-
-    public void test() {
-        System.out.println("test");
-        System.out.println("11111111111111111111111111111111111111111111111111");
-        visitUserInfoService.test();
-    }
-
-
-
 
 
     private void saveImageInfo(String fileName,byte[] fileBytes,String userInfoId,String result) {
@@ -290,6 +291,7 @@ public class ApiController {
             uploadImageInfo.setUserInfoId(userInfoId);
             uploadImageInfo.setUrl(imageUrl);
             uploadImageInfo.setCreateDate(new Date());
+            uploadImageInfo.setResult(result);
             uploadImageInfoService.add(uploadImageInfo);
         });
     }

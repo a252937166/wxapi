@@ -13,10 +13,13 @@
     <result column="openid" property="openid" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--          -->
-    id, avatar_url, city, country, gender, language, nick_name, openid, province, create_date
+    id, avatar_url, city, country, gender, language, nick_name, openid, province, create_date, 
+    code, session_key
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--          -->
@@ -35,11 +38,13 @@
     insert into visit_user_info (id, avatar_url, city, 
       country, gender, language, 
       nick_name, openid, province, 
-      create_date)
+      create_date, code, session_key
+      )
     values (#{id,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP})
+      #{createDate,jdbcType=TIMESTAMP}, #{code,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ouyang.model.VisitUserInfo" >
     <!--          -->
@@ -75,6 +80,12 @@
       <if test="createDate != null" >
         create_date,
       </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="sessionKey != null" >
+        session_key,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -106,6 +117,12 @@
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null" >
+        #{sessionKey,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -140,6 +157,12 @@
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null" >
+        session_key = #{sessionKey,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -154,7 +177,9 @@
       nick_name = #{nickName,jdbcType=VARCHAR},
       openid = #{openid,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      code = #{code,jdbcType=VARCHAR},
+      session_key = #{sessionKey,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
