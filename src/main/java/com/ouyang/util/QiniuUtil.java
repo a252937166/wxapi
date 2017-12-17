@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 public class QiniuUtil {
     private static String accessKey = "0j0DJNycJ8YTqLlgh22aKM57vfeAnfsuQy8ZrBDP";
-    private static String secretKey = "_mj_dSZo93IGCjZ3JpusTNGWDMjfslfgZFWhnNSw";
+    private static String secretKey = "mj_dSZo93IGCjZ3JpusTNGWDMjfslfgZFWhnNSw";
     private static String bucket = "tencent";
     public static String uploadImg(MultipartFile file) {
         //构造一个带指定Zone对象的配置类
