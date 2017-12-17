@@ -30,11 +30,14 @@ public class VisitUserInfo {
     /**   province **/
     private String province;
 
-    /**   image_info_id **/
-    private String imageInfoId;
-
     /**   create_date **/
     private Date createDate;
+
+    /**   code **/
+    private String code;
+
+    /**   session_key **/
+    private String sessionKey;
 
     /**     id   **/
     public String getId() {
@@ -126,16 +129,6 @@ public class VisitUserInfo {
         this.province = province == null ? null : province.trim();
     }
 
-    /**     image_info_id   **/
-    public String getImageInfoId() {
-        return imageInfoId;
-    }
-
-    /**     image_info_id   **/
-    public void setImageInfoId(String imageInfoId) {
-        this.imageInfoId = imageInfoId == null ? null : imageInfoId.trim();
-    }
-
     /**     create_date   **/
     public Date getCreateDate() {
         return createDate;
@@ -144,5 +137,25 @@ public class VisitUserInfo {
     /**     create_date   **/
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**     code   **/
+    public String getCode() {
+        return code;
+    }
+
+    /**     code   **/
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
+    /**     session_key   **/
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    /**     session_key   **/
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey == null ? null : sessionKey.trim();
     }
 }

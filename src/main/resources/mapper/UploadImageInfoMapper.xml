@@ -7,16 +7,25 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
-    <result column="result" property="userInfoId" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ouyang.model.UploadImageInfo" extends="BaseResultMap" >
+    <!--          -->
+    <result column="result" property="result" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--          -->
     id, url, create_date, user_info_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="Blob_Column_List" >
+    <!--          -->
+    result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     <!--          -->
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from upload_image_info
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -28,9 +37,9 @@
   <insert id="insert" parameterType="com.ouyang.model.UploadImageInfo" >
     <!--          -->
     insert into upload_image_info (id, url, create_date, 
-      user_info_id)
+      user_info_id, result)
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{userInfoId,jdbcType=VARCHAR})
+      #{userInfoId,jdbcType=VARCHAR}, #{result,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ouyang.model.UploadImageInfo" >
     <!--          -->
@@ -48,7 +57,7 @@
       <if test="userInfoId != null" >
         user_info_id,
       </if>
-      <if test="result != null">
+      <if test="result != null" >
         result,
       </if>
     </trim>
@@ -66,7 +75,7 @@
         #{userInfoId,jdbcType=VARCHAR},
       </if>
       <if test="result != null" >
-        #{result,jdbcType=VARCHAR},
+        #{result,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -83,7 +92,19 @@
       <if test="userInfoId != null" >
         user_info_id = #{userInfoId,jdbcType=VARCHAR},
       </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ouyang.model.UploadImageInfo" >
+    <!--          -->
+    update upload_image_info
+    set url = #{url,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      result = #{result,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ouyang.model.UploadImageInfo" >

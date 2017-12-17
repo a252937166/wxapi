@@ -1,5 +1,6 @@
 package com.ouyang.util;
 
+import com.ouyang.util.baidu.HttpUtil;
 import com.youtu.Youtu;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,15 +29,12 @@ public class TencentAiUtil {
 
     public static void main(String[] args) {
         try {
-            String j = detectFace("https://qiniu.ouyanglol.com/ba8e95719510443dbaf1d87aba763cb7_wxdf95e58238bdb05a.o6zAJs9W_uJeJo7vcvGsIWe-0jwg.afee67a619f2f862790c52e9aed5b985.jpg");
-            System.out.println(j);
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+
+            String s = HttpUtil.getUrl("https://api.weixin.qq.com/sns/jscode2session?appid=wxeadff8cfd42bc3a9&secret=08cb141033ff61196cddb284fac405a7&js_code=003ifqN406osTI1QoTK40lkpN40ifqNA&grant_type=authorization_code","application/json","UTF-8");
+            JSONObject j = new JSONObject(s);
+            String id = (String) j.get("openid");
+            System.out.println(id);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
