@@ -51,7 +51,7 @@ public class ApiController {
     public HttpResult<Object> baiDuFaceRecognize(MultipartFile file, String userInfoId) throws IOException, JSONException {
         HttpResult<Object> httpResult = new HttpResult<>();
         JSONObject faceJson = new JSONObject(BaiduAiUtil.faceRecognize(file.getBytes()));
-        JSONArray resultArray = (JSONArray) faceJson.get("result");
+        JSONArray resultArray = (JSONArray) ((JSONObject) faceJson.get("result")).get("face_list");
         if (resultArray.length() == 0) {
             httpResult.setSuccess(false);
             httpResult.setMsg("人物图像无法识别！");

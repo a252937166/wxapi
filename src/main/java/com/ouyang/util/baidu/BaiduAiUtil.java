@@ -39,7 +39,7 @@ public class BaiduAiUtil {
 //        System.out.println(response.toString());
 
         // 参数为本地图片文件二进制数组
-        return client.detect(image, options).toString();
+        return client.detect(Base64Util.encode(image),"BASE64", options).toString();
     }
 
     /**
@@ -166,21 +166,20 @@ public class BaiduAiUtil {
     }
 
     public static void main(String[] args) {
-        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511504343573&di=d7262d0159c251bec8c31c640dfdab52&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F4afbfbedab64034f48fa4d3fa4c379310a551dd7.jpg";
-        String s = orcBankcard(Http.getImageBytes(url));
-        JSONObject faceJson = null;
+        HashMap<String, String> options = new HashMap<String, String>();
+        options.put("max_face_num", "1");
+        options.put("face_field", "age,beauty,qualities");
+
+        String jsonObject = client.detect("https://qiniu.ouyanglol.com/31aabe97223843d09de7d3c6829da556_tmp_2df77d0a25b1b41418f1470c4bb0c731.jpg","URL", options).toString();
+        System.out.println(jsonObject);
         try {
-            faceJson = new JSONObject(s);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            JSONArray resultArray = (JSONArray) faceJson.get("words_result");
+            JSONObject faceJson = new JSONObject(jsonObject);
+            JSONArray resultArray = (JSONArray) ((JSONObject) faceJson.get("result")).get("face_list");
             JSONObject jsonResult = (JSONObject) resultArray.get(0);
-            System.out.println(jsonResult.toString());
+            String resultStr = jsonResult.toString();
+            System.out.println(resultStr);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(0);
     }
 }
